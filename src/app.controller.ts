@@ -4,38 +4,43 @@ import { SecretKeyGuard } from './secretKey.guard';
 
 @Controller()
 export class AppController {
+  constructor(private aiService: OpenAIService) {}
 
-  constructor(private aiService: OpenAIService) { }
-
-  @Post("/sendMessage")
+  @Post('/sendMessage')
   @UseGuards(SecretKeyGuard)
   async sendMessage(@Body() body) {
-
     const { text: message, conversationId } = body;
 
-
     const result = await this.aiService.sendMessage(message, conversationId);
     if (!result) {
-      throw new Error("Error in result");
+      throw new Error('Error in result');
     }
     const { id, text } = result;
     return {
-      id, text
-    }
+      id,
+      text,
+    };
   }
 
-  @Get("/sendMessage")
+  @Get('/sendMessage')
   @UseGuards(SecretKeyGuard)
-  async sendGetMessage(@Query('text') message, @Query('conversationId') conversationId) {
-
-
+  async sendGetMessage(
+    @Query('text') message,
+    @Query('conversationId') conversationId,
+  ) {
     const result = await this.aiService.sendMessage(message, conversationId);
     if (!result) {
-      throw new Error("Error in result");
+      throw new Error('Error in result');
     }
     const { id, text } = result;
     return {
-      id, text
-    }
+      id,
+      text,
+    };
+  }
+
+  @Get('/')
+  async hello() {
+    return 'Hello World';
   }
 }
