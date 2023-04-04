@@ -29,3 +29,5 @@ body parameters:
 - text - prompt message
 - conversationId - (optional) previous conversation id
 - secret - (optional) secret key if process.env.SECRET_KEY is set
+
+Forked from https://github.com/RusDyn/chatgpt_nestjs_server
